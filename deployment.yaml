@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: churn-risk-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: churn-risk
+  template:
+    metadata:
+      labels:
+        app: churn-risk
+    spec:
+      containers:
+      - name: churn-risk
+        image: churn-risk:latest
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: churn-risk-service
+spec:
+  type: NodePort
+  selector:
+    app: churn-risk
+  ports:
+    - port: 80
+      targetPort: 8000
+      nodePort: 30007
