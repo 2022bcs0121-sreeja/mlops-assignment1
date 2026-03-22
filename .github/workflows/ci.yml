@@ -9,7 +9,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout code
+      uses: actions/checkout@v3
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -23,3 +24,6 @@ jobs:
 
     - name: Run tests
       run: python -m pytest
+
+    - name: Build Docker image
+      run: docker build -t 2022bcs0121-churn-prediction .
